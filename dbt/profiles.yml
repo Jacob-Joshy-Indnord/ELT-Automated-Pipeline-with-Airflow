@@ -1,12 +1,12 @@
 my_project:
   outputs:
     dev:
-      dbname: database
-      host: db
-      pass: '123456'
-      port: 5432
+      dbname: "{{ env_var('DBT_DBNAME', 'database') }}"
+      host: "{{ env_var('DBT_HOST', 'db') }}"
+      pass: "{{ env_var('DBT_PASSWORD', '123456') }}"
+      port: "{{ env_var('DBT_PORT', '5432') | as_number }}"
       schema: staging
       threads: 4
       type: postgres
-      user: postgres
+      user: "{{ env_var('DBT_USER', 'postgres') }}"
   target: dev

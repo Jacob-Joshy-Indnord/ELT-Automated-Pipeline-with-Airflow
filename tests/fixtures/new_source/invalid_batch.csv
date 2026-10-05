@@ -1,0 +1,12 @@
+source_key,source_version,event_time,invoice_no,stock_code,description,quantity,unit_price,currency,customer_id,country,discount,payment_method,shipping_cost,category,sales_channel,return_status,order_priority
+OK-1,1,2025-01-10T08:00:00Z,1,S,Good Item,2,10.0,USD,1,Spain,0,paypall,1.0,Apparel,Online,Not Returned,High
+OK-1,1,2025-01-10T08:05:00Z,1,S,Good Item,2,10.0,USD,1,Spain,0,paypall,1.0,Apparel,Online,Not Returned,High
+,1,2025-01-10T08:00:00Z,2,S,No Key,2,10.0,USD,1,Spain,0,paypall,1.0,Apparel,Online,Not Returned,High
+BAD-QTY,1,2025-01-10T08:00:00Z,3,S,Bad Qty,abc,10.0,USD,1,Spain,0,paypall,1.0,Apparel,Online,Not Returned,High
+BAD-TS,1,not-a-date,4,S,Bad Date,2,10.0,USD,1,Spain,0,paypall,1.0,Apparel,Online,Not Returned,High
+BAD-CAT,1,2025-01-10T08:00:00Z,5,S,Bad Cat,2,10.0,USD,1,Spain,0,paypall,1.0,Toys,Online,Not Returned,High
+BAD-CUR,1,2025-01-10T08:00:00Z,6,S,Bad Cur,2,10.0,EUR,1,Spain,0,paypall,1.0,Apparel,Online,Not Returned,High
+LATE-1,1,2024-12-01T08:00:00Z,7,S,Late Item,2,10.0,USD,1,Spain,0,paypall,1.0,Apparel,Online,Not Returned,High
+FUTURE-1,1,2025-02-01T08:00:00Z,8,S,Future Item,2,10.0,USD,1,Spain,0,paypall,1.0,Apparel,Online,Not Returned,High
+ZERO-QTY,1,2025-01-10T08:00:00Z,9,S,Zero Qty,0,10.0,USD,1,Spain,0,paypall,1.0,Apparel,Online,Not Returned,High
+ZERO-PRICE,1,2025-01-10T08:00:00Z,10,S,Zero Price,2,0,USD,1,Spain,0,paypall,1.0,Apparel,Online,Not Returned,High

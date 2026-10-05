@@ -1,0 +1,5 @@
+source_key,source_version,event_time,invoice_no,stock_code,description,quantity,unit_price,currency,customer_id,country,discount,payment_method,shipping_cost,category,sales_channel,return_status,order_priority
+NS-1,1,2025-01-10T08:00:00Z,9001,SKU_1,White Mug,10,5.00,USD,111,Spain,2.5,paypall,3.0,Apparel,Online,Not Returned,High
+NS-2,1,2025-01-10T09:30:00+02:00,9002,SKU_2,Blue Pen,4,2.25,usd,112,France,,Credit Card,,stationery,in-store,Returned,Low
+NS-3,1,2025-01-09T23:00:00,9003,SKU_3,Desk Lamp,1,40.00,USD,,Italy,0,Bank Transfer,7.5,Furniture,Online,,Medium
+NS-1,2,2025-01-10T10:00:00Z,9001,SKU_1,White Mug,12,5.00,USD,111,Spain,2.5,paypall,3.0,Apparel,Online,Not Returned,High

@@ -1,0 +1,35 @@
+version: 2
+
+models:
+  - name: stg_new_source_sales
+    columns:
+      - name: source_key
+        tests: [not_null, unique]
+      - name: invoice_date
+        tests: [not_null]
+      - name: quantity
+        tests:
+          - not_null
+          - positive_value
+      - name: unit_price
+        tests:
+          - not_null
+          - positive_value
+      - name: category
+        tests:
+          - accepted_values:
+              values: ['Apparel', 'Electronics', 'Accessories', 'Stationery', 'Furniture']
+      - name: sales_channel
+        tests:
+          - accepted_values:
+              values: ['In-store', 'Online']
+      - name: order_priority
+        tests:
+          - accepted_values:
+              values: ['High', 'Medium', 'Low']
+  - name: stg_all_sales
+    columns:
+      - name: feed
+        tests:
+          - accepted_values:
+              values: ['legacy', 'new_source']

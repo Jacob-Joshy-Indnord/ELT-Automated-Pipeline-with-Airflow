@@ -32,3 +32,11 @@ clean-targets:         # directories to be removed by `dbt clean`
 models:
   my_project:
     # Config indicated by + and applies to all files under models/example/
+
+    # Staging/marts keep the profile schema; see profiles.yml.
+
+vars:
+  # Pause switch: set to false to stop publishing new-source rows to reports.
+  publish_new_source: true
+  # Provisional threshold; agree with the source owner (docs/new_source_contract.md).
+  max_reject_rate: 0.2

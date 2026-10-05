@@ -2,7 +2,7 @@ version: 2
 
 sources:
   - name: staging
-    database: database
+    database: "{{ env_var('DBT_DBNAME', 'database') }}"
     schema: staging
     tables:
       - name: online_sales_data
@@ -25,3 +25,42 @@ sources:
           - name: shipment_provider
           - name: warehouse_location
           - name: order_priority
+
+  - name: new_source
+    database: "{{ env_var('DBT_DBNAME', 'database') }}"
+    schema: new_source
+    tables:
+      - name: sales_landing
+        columns:
+          - name: source_key
+            tests: [not_null]
+          - name: source_version
+            tests: [not_null]
+          - name: event_time
+            tests: [not_null]
+          - name: quantity
+            tests: [not_null]
+          - name: unit_price
+            tests: [not_null]
+          - name: category
+            tests:
+              - accepted_values:
+                  values: ['Apparel', 'Electronics', 'Accessories', 'Stationery', 'Furniture']
+          - name: sales_channel
+            tests:
+              - accepted_values:
+                  values: ['In-store', 'Online']
+          - name: order_priority
+            tests:
+              - accepted_values:
+                  values: ['High', 'Medium', 'Low']
+          - name: return_status
+            tests:
+              - accepted_values:
+                  values: ['Not Returned', 'Returned']
+      - name: sales_rejects
+      - name: load_batches
+        loaded_at_field: loaded_at
+        freshness:
+          warn_after: {count: 26, period: hour}
+          error_after: {count: 48, period: hour}
