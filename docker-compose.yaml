@@ -8,7 +8,7 @@ x-superset-volumes: &superset-volumes
 services:
   db:
     container_name: postgres_container
-    image: postgres:latest
+    image: postgres:17  # data in ./postgres/data is PG17; 18+ refuses this layout
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 123456
@@ -19,6 +19,11 @@ services:
       - ./postgres/data:/var/lib/postgresql/data
       - ./postgres/airflow_init.sql:/docker-entrypoint-initdb.d/airflow_init.sql
       - ./postgres/superset_init.sql:/docker-entrypoint-initdb.d/superset_init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
     networks:
       - my_network
 
@@ -35,7 +40,8 @@ services:
       - ./data/raw:/opt/airflow/data/raw
       - /var/run/docker.sock:/var/run/docker.sock
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     networks:
       - my_network
     command: >
@@ -51,7 +57,8 @@ services:
     environment:
       DBT_PROFILES_DIR: "/root/.dbt"
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     networks:
       - my_network
     command: run
@@ -67,7 +74,7 @@ services:
         required: false
     depends_on:
       db:
-        condition: service_started
+        condition: service_healthy
       redis:
         condition: service_started
     user: *superset-user
