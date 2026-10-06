@@ -1,0 +1,26 @@
+version: 2
+
+models:
+  - name: stg_new_source_sales
+    columns:
+      - name: source_key
+        data_tests: [not_null, unique]
+      - name: invoice_date
+        data_tests: [not_null]
+      - name: quantity
+        data_tests: [not_null]
+      - name: unit_price
+        data_tests: [not_null]
+      - name: sales_channel
+        data_tests:
+          - accepted_values:
+              values: ['Online', 'In-store']
+              config:
+                where: "sales_channel IS NOT NULL"
+                severity: warn
+  - name: stg_all_sales
+    columns:
+      - name: source_system
+        data_tests:
+          - accepted_values:
+              values: ['legacy', 'new_source']
