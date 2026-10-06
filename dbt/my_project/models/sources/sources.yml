@@ -25,3 +25,25 @@ sources:
           - name: shipment_provider
           - name: warehouse_location
           - name: order_priority
+
+  - name: new_source
+    database: database
+    schema: new_source
+    tables:
+      - name: sales_landing
+        columns:
+          - name: source_key
+            data_tests: [not_null]
+          - name: source_version
+            data_tests: [not_null]
+          - name: event_time
+            data_tests: [not_null]
+          - name: batch_id
+            data_tests: [not_null]
+          - name: loaded_at
+          - name: quantity
+            data_tests: [not_null]
+          - name: unit_price
+            data_tests: [not_null]
+      - name: sales_rejects
+      - name: load_batches
