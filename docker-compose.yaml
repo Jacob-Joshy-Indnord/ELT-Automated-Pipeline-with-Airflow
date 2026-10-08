@@ -38,6 +38,7 @@ services:
       - ./airflow/dags:/opt/airflow/dags
       - ./request-script:/opt/airflow/request-script
       - ./data/raw:/opt/airflow/data/raw
+      - ./data/shopify:/opt/airflow/data/shopify  # daily Shopify order CSVs
       - /var/run/docker.sock:/var/run/docker.sock
     depends_on:
       db:

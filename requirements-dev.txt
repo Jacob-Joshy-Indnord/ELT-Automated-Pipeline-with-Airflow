@@ -1,0 +1,3 @@
+# Local test dependencies (the containers bring their own runtime packages).
+pandas
+pytest
