@@ -49,7 +49,8 @@ def create_table_query(conn):
         print(f"Error creating table: {e}")
         raise
 
-df = pd.read_csv(r'data/raw/online_sales_dataset.csv')
+def get_df():
+    return pd.read_csv(r'data/raw/online_sales_dataset.csv')
 
 def load_data_to_db(df, conn):
     print("Loading online sales data into the database...")
@@ -69,11 +70,46 @@ def load_data_to_db(df, conn):
         print(f"Error loading data into the database: {e}")
         raise
 
+def run_for_date(run_date, conn=None, data=None):
+    """Guarded, failure-propagating entry point used by the Airflow DAG.
+
+    Appends the legacy CSV at most once per run date (the loader itself still appends without
+    dedup). The log row and the data commit together, so a failed load can be retried and a
+    completed run date is skipped on rerun/backfill. Raises on any error. Returns rows loaded.
+    """
+    own_conn = conn is None
+    conn = conn or connect_to_db()
+    try:
+        create_table_query(conn)
+        cursor = conn.cursor()
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS staging.legacy_load_log (
+                run_date DATE PRIMARY KEY,
+                loaded_at TIMESTAMP NOT NULL DEFAULT now()
+            )
+        """)
+        cursor.execute(
+            "INSERT INTO staging.legacy_load_log (run_date) VALUES (%s) ON CONFLICT DO NOTHING RETURNING run_date",
+            (run_date,))
+        if cursor.fetchone() is None:
+            conn.commit()
+            print(f"Legacy rows already loaded for {run_date}; skipping.")
+            return 0
+        frame = get_df() if data is None else data
+        load_data_to_db(frame, conn)  # commits the log row together with the data
+        return len(frame)
+    except Exception:
+        conn.rollback()
+        raise
+    finally:
+        if own_conn:
+            conn.close()
+
 def main():
     try:
         conn = connect_to_db()
         create_table_query(conn)
-        load_data_to_db(df, conn)
+        load_data_to_db(get_df(), conn)
     except Exception as e:
         print(f"An error occurred during execution: {e}")
     finally:
