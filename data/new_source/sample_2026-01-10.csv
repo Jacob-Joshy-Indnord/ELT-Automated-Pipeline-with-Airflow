@@ -1,0 +1,7 @@
+source_key,version,event_time,quantity,unit_price,description,category,sales_channel,return_status,discount,shipping_cost,order_priority,country
+NS-1001,1,2026-01-10 08:00,2,10.00,White Mug,Apparel,Online,Not Returned,1.00,2.50,High,Spain
+NS-1002,1,2026-01-10 09:30,1,25.50,Headphones,Electronics,In-store,Returned,0,0,Low,Germany
+NS-1002,2,2026-01-10 09:30,3,25.50,Headphones,Electronics,In-store,Not Returned,0,4.00,Low,Germany
+NS-1003,1,2026-01-10 10:00,0,5.00,Mug,Apparel,Online,Not Returned,0,0,Medium,France
+NS-1004,1,2026-01-10 11:00,,5.00,Mug,Apparel,Online,Not Returned,0,0,Medium,France
+NS-1001,1,2026-01-10 08:00,2,10.00,White Mug,Apparel,Online,Not Returned,1.00,2.50,High,Spain
