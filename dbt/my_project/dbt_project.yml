@@ -32,3 +32,10 @@ clean-targets:         # directories to be removed by `dbt clean`
 models:
   my_project:
     # Config indicated by + and applies to all files under models/example/
+
+# PROVISIONAL new-source thresholds (placeholders pending business approval; keep in sync with
+# request-script/new_source_contract.json, which the DAG passes in as --vars).
+vars:
+  new_source_run_date: null          # 'YYYY-MM-DD'; null = latest loaded batch
+  new_source_zero_row_policy: 'fail' # 'fail' | 'allow'
+  new_source_late_event_days: 1

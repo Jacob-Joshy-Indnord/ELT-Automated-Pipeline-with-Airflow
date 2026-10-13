@@ -25,3 +25,11 @@ sources:
           - name: shipment_provider
           - name: warehouse_location
           - name: order_priority
+  - name: landing_new
+    database: database
+    schema: landing_new
+    description: PROVISIONAL landing for the new sales source (request-script/new_source_contract.json)
+    tables:
+      - name: new_sales_source
+      - name: new_sales_rejects
+      - name: load_batches

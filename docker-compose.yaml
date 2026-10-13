@@ -32,12 +32,20 @@ services:
     image: apache/airflow:latest
     environment:
       AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@db:5432/airflow_db
+      # Host-side paths for the DockerOperator bind mounts (absolute paths on the Docker host).
+      # Set in a .env file next to this compose file; defaults assume it is run from the repo root.
+      DBT_HOST_PROJECT_DIR: ${DBT_HOST_PROJECT_DIR:-${PWD}/dbt/my_project}
+      DBT_HOST_PROFILES_FILE: ${DBT_HOST_PROFILES_FILE:-${PWD}/dbt/profiles.yml}
+      DBT_DOCKER_NETWORK: ${DBT_DOCKER_NETWORK:-online-sales-data-pipeline_my_network}
+      DOCKER_URL: ${DOCKER_URL:-unix://var/run/docker.sock}
+      NEW_SOURCE_DIR: /opt/airflow/data/new_source
     ports:
       - "8080:8080"
     volumes:
       - ./airflow/dags:/opt/airflow/dags
       - ./request-script:/opt/airflow/request-script
       - ./data/raw:/opt/airflow/data/raw
+      - ./data/new_source:/opt/airflow/data/new_source
       - /var/run/docker.sock:/var/run/docker.sock
     depends_on:
       db:

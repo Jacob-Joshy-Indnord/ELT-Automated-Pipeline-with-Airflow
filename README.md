@@ -89,6 +89,11 @@ The pipeline is orchestrated using an Apache Airflow DAG (`airflow/dags/orchestr
 - **Task 2:** Runs dbt in a Docker container to transform and aggregate the data.
 - Airflow ensures these tasks run in sequence and can be scheduled to run automatically (e.g., daily).
 
+## New sales source (provisional)
+A second feed lands in `landing_new.*` (`request-script/load_new_source.py`), is combined with the legacy feed in
+`stg_combined_sales` upstream of `sales_report`, and is gated by dbt tests and a daily cutoff. See `docs/new_source_release.md`.
+Run the Python tests with `pytest tests`.
+
 ## **Customization**
 
 - **dbt models:** Modify or add models in `dbt/my_project/models/` for new marts or transformations.

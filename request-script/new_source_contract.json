@@ -1,0 +1,36 @@
+{
+  "_note": "PROVISIONAL contract. Single source of truth for every assumption made before the source owner approves the real contract (task-new-contract). No production vendor or format is assumed. Reconcile code/tests with this file, then set approval.status to 'approved'.",
+  "status": "provisional",
+  "access": {"protocol": "file", "format": "csv", "location": "data/new_source/<run_date>.csv", "credentials": "none (provisional); real credentials via Airflow Connection/secret, never committed"},
+  "business_key": {"source_key": "source_key", "version": "version (integer, higher wins)"},
+  "updates": "new version of a source_key supersedes older versions in staging; all versions kept in landing",
+  "deletes": "not supported provisionally; unresolved",
+  "timezone": "UTC",
+  "currency": "USD",
+  "currency_conversion": "none (no-op)",
+  "required_fields": ["source_key", "version", "event_time", "quantity", "unit_price"],
+  "missing_field_policy": "reject row to landing_new.new_sales_rejects with reason",
+  "field_mapping": {
+    "event_time": "invoice_date", "source_key": "invoice_no (prefixed NS-)", "quantity": "quantity", "unit_price": "unit_price",
+    "optional": ["stock_code", "description", "customer_id", "country", "discount", "payment_method", "shipping_cost", "category", "sales_channel", "return_status", "shipment_provider", "warehouse_location", "order_priority"]
+  },
+  "thresholds": {
+    "daily_cutoff_utc": "06:00",
+    "zero_row_policy": "fail",
+    "late_event_days": 1,
+    "_note": "placeholders; need business approval"
+  },
+  "approval": {
+    "status": "pending",
+    "source_owner": null,
+    "approved_on": null,
+    "approved_items": {
+      "access_protocol": false, "sample_and_schema": false, "credentials_handling": false, "field_mapping": false,
+      "business_key": false, "updates_deletes": false, "timezone": false, "currency": false,
+      "daily_cutoff": false, "missing_field_policy": false
+    },
+    "implementation_reconciled": false,
+    "sdlc_approvers": [],
+    "nonproduction_environment": null
+  }
+}
