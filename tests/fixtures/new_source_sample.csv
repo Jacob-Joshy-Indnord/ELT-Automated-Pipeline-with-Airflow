@@ -1,0 +1,7 @@
+source_key,source_version,event_time,description,quantity,unit_price,discount,shipping_cost,category,country,payment_method,sales_channel,return_status,order_priority
+N1,1,2020-01-05T10:00:00,Blue Mug,2,10,1,2,Apparel,Spain,paypal,Online,Not Returned,High
+N1,2,2020-01-05T10:00:00,Blue Mug,3,10,1,2,Apparel,Spain,paypal,Online,Returned,High
+N2,1,2020-02-05T10:00:00,Red Mug,0,10,,,Apparel,Spain,paypal,Online,Not Returned,Low
+N3,1,not-a-date,Red Mug,1,10,,,Apparel,Spain,paypal,Online,Not Returned,Low
+N4,1,2020-02-06T10:00:00,Cap,4,2.5,,1,Toys,Italy,card,In-store,Not Returned,medium
+N4,1,2020-02-06T10:00:00,Cap,4,2.5,,1,Toys,Italy,card,In-store,Not Returned,medium

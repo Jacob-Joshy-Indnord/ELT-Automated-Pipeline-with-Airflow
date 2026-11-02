@@ -20,4 +20,4 @@ SELECT
     invoice_month,
     invoice_year,
     invoice_quarter
-FROM {{ ref('stg_online_sales') }}
+FROM {{ ref('stg_all_sales') }}
